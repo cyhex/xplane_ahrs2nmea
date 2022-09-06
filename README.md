@@ -33,4 +33,7 @@ python3 ahrs_nmea.py
 * X-Plane: https://www.x-plane.com/
 * SeeYou Navigator: https://naviter.com/seeyou-navigator/
 * naviter-condor-dongle https://kb.naviter.com/en/kb/naviter-condor-dongle/
+* https://campar.in.tum.de/twiki/pub/Chair/NaviGpsDemon/nmea.html#GSA
+* https://www.manualslib.de/manual/5255/Lxnav-Lx8000.html?page=78
+* https://github.com/musurca/msfs2fltplan/blob/master/connect.py
 
