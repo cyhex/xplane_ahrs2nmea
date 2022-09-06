@@ -1,10 +1,8 @@
 import datetime
 import socket
-import threading
 
 import pynmea2
 import serial
-
 
 # destination (moving maps), can be serial / socket / file
 dest = serial.Serial('/dev/tty.usbserial-0001', 4800)
@@ -12,6 +10,7 @@ dest = serial.Serial('/dev/tty.usbserial-0001', 4800)
 # x plane source
 source = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 source.bind(('', 49002))
+
 
 class AHRS2NMEA:
   """
@@ -23,18 +22,18 @@ class AHRS2NMEA:
       while True:
         message, address = source.recvfrom(1024)
         data = message.decode("ascii").split(",")
+        print(data)
 
         if data[0] == "XGPS1":
           gga = self.build_gga(data)
           rpc = self.build_rmc(data)
-          threading.Thread(target=dest.write, args=(f"{gga}\r\n{rpc}\r\n".encode("ascii")))
+          msg = f"{gga}\r\n{rpc}\r\n"
+          dest.write(msg.encode("ascii"))
           print(data)
 
     finally:
       source.close()
       dest.close()
-
-
 
   def deg_to_dms(self, deg):
     """Convert from decimal degrees to degrees, minutes.seconds."""
